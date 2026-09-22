@@ -4,9 +4,8 @@ import xponentialMark from "./imports/Xponential_X_transparent.png"
 import hpeLogo from "./assets/HPE.png"
 import lenovoLogo from "./assets/LENOVO.png"
 import googleLogo from "./assets/GOOGLE.jpeg"
-import duxburyLogo from "./assets/DUXBURY.png"
 import zamtelLogo from "./assets/Zamtel.png"
-import redDotLogo from "./assets/REDDOT.jpeg"
+
 
 // ---- Scroll-in animation hook ----
 function useInView(threshold = 0.12) {
@@ -19,7 +18,7 @@ function useInView(threshold = 0.12) {
       ([entry]) => {
         if (entry.isIntersecting) setInView(true)
       },
-      { threshold }
+      { threshold },
     )
     obs.observe(el)
     return () => obs.disconnect()
@@ -32,19 +31,25 @@ function Logo({ light = false }: { light?: boolean }) {
   const wordColor = light ? "#ffffff" : "#111111"
 
   return (
-    <span className="flex h-10 items-start gap-1 select-none md:h-12 md:gap-1.5">
+    <a
+      href="#top"
+      aria-label="Xponential — home"
+      className="flex h-10 items-start gap-1 select-none md:h-12 md:gap-1.5"
+    >
       <img
         src={xponentialMark}
-        alt="X"
+        alt=""
+        aria-hidden="true"
         className="h-full w-auto object-contain color-green"
       />
       <span
+        aria-hidden="true"
         className="font-black text-[1.05rem] leading-none tracking-[-0.02em] pt-1 md:pt-1.5 md:text-[1.3rem]"
         style={{ color: wordColor, WebkitTextStroke: `0.4px ${wordColor}` }}
       >
         PONENTIAL
       </span>
-    </span>
+    </a>
   )
 }
 
@@ -61,9 +66,7 @@ function Nav({ onContact }: { onContact: () => void }) {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        "bg-white border-b border-[#d9ddd9] shadow-sm"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${"bg-white border-b border-[#d9ddd9] shadow-sm"}`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between h-16 md:h-20">
         <Logo />
@@ -79,12 +82,6 @@ function Nav({ onContact }: { onContact: () => void }) {
               {l.label}
             </a>
           ))}
-          <button
-            onClick={onContact}
-            className="text-black/70 border border-black/25 px-6 py-2 text-xs font-bold tracking-[0.2em] uppercase hover:bg-black hover:text-white transition-all duration-200"
-          >
-            Get in Touch
-          </button>
         </div>
 
         {/* Mobile hamburger */}
@@ -92,6 +89,8 @@ function Nav({ onContact }: { onContact: () => void }) {
           className="md:hidden flex flex-col justify-center gap-1.5 p-2"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-nav-menu"
         >
           <span
             className={`block w-6 h-[2px] bg-black transition-all duration-300 origin-center ${
@@ -113,6 +112,8 @@ function Nav({ onContact }: { onContact: () => void }) {
 
       {/* Mobile dropdown */}
       <div
+        id="mobile-nav-menu"
+        inert={!menuOpen}
         className={`md:hidden bg-white border-b border-[#d9ddd9] overflow-hidden transition-all duration-300 ${
           menuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
         }`}
@@ -154,11 +155,14 @@ function Hero({ onContact }: { onContact: () => void }) {
 
   return (
     <section className="relative min-h-[700px] md:min-h-screen flex flex-col justify-end pb-20 md:pb-28 md:pt-44 overflow-hidden bg-[#f6f8f6]">
-      {/* Background image */}
+      {/* Background image (decorative) */}
       <div className="absolute inset-0">
         <img
           src="https://images.unsplash.com/photo-1573164574511-73c773193279?w=1600&h=900&fit=crop&auto=format"
-          alt="Xponential professionals collaborating"
+          alt=""
+          role="presentation"
+          fetchPriority="high"
+          decoding="async"
           className="w-full h-full object-cover opacity-25"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#f6f8f6] via-[#f6f8f6]/70 to-transparent" />
@@ -206,7 +210,8 @@ function Hero({ onContact }: { onContact: () => void }) {
           }`}
         >
           <p className="text-black/45 text-base md:text-lg max-w-sm leading-relaxed">
-            We plan, build, support and manage IT environments for businesses across Zambia  using technologies that are fit for purpose.
+            We plan, build, support and manage IT environments for businesses
+            across Zambia using technologies that are fit for purpose.
           </p>
           <div className="flex flex-col sm:flex-row gap-5 shrink-0">
             <a
@@ -214,7 +219,9 @@ function Hero({ onContact }: { onContact: () => void }) {
               className="group inline-flex items-center gap-3 text-black font-bold text-sm tracking-wide border-b-2 border-black/30 pb-1 hover:border-black hover:text-black transition-all duration-200"
             >
               Explore Services
-              <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
+              <span className="group-hover:translate-x-1 transition-transform duration-200">
+                →
+              </span>
             </a>
             <button
               onClick={onContact}
@@ -237,17 +244,14 @@ function Hero({ onContact }: { onContact: () => void }) {
 // ---- Services ----
 type ServiceKey = "work" | "infra" | "services"
 
-const SERVICE_DATA: Record<
-  ServiceKey,
-  {
-    label: string
-    headline: string
-    description: string
-    items: { cat: string; detail: string }[]
-    image: string
-    imageAlt: string
-  }
-> = {
+const SERVICE_DATA: Record<ServiceKey, {
+  label: string
+  headline: string
+  description: string
+  items: { cat: string; detail: string }[]
+  image: string
+  imageAlt: string
+}> = {
   work: {
     label: "Smart Work",
     headline: "Every desk.\nEvery screen.",
@@ -404,6 +408,8 @@ function Services() {
             <img
               src={data.image}
               alt={data.imageAlt}
+              loading="lazy"
+              decoding="async"
               className="w-full h-[300px] md:h-[420px] object-cover transition-opacity duration-500"
             />
             <div className="absolute inset-0 bg-black/5" />
@@ -432,7 +438,9 @@ function About() {
           <div className="relative">
             <img
               src="https://images.unsplash.com/photo-1655720357872-ce227e4164ba?w=800&h=700&fit=crop&auto=format"
-              alt="Xponential team reviewing solutions together"
+              alt="IT professionals reviewing a technology solution together"
+              loading="lazy"
+              decoding="async"
               className="w-full h-[380px] md:h-[540px] object-cover"
             />
             <div className="absolute -bottom-4 -right-4 w-40 h-40 border border-black/8 pointer-events-none hidden md:block" />
@@ -469,10 +477,16 @@ function About() {
               ZAMBIAN.
             </h2>
             <p className="text-black/45 text-base md:text-lg leading-relaxed mb-5">
-              XPONENTIAL was founded with a clear vision to offer excellent ICT Services and Infrastructure. We are a specialised Solutions Provider that helps businesses plan, build, support and manage different IT environments.
+              XPONENTIAL was founded with a clear vision to offer excellent ICT
+              Services and Infrastructure. We are a specialised Solutions
+              Provider that helps businesses plan, build, support and manage
+              different IT environments.
             </p>
             <p className="text-black/45 text-base md:text-lg leading-relaxed mb-12">
-              We strive to be a trusted partner with a clear understanding of our customers&apos; operations, enabling them to achieve desired business outcomes. We adapt across different industries using our deep experience.
+              We strive to be a trusted partner with a clear understanding of
+              our customers&apos; operations, enabling them to achieve desired
+              business outcomes. We adapt across different industries using our
+              deep experience.
             </p>
 
             {/* Vision / Mission */}
@@ -595,7 +609,9 @@ function Values() {
           <div className="bg-[#f6f8f6] overflow-hidden">
             <img
               src="https://images.unsplash.com/photo-1573164574397-dd250bc8a598?w=600&h=340&fit=crop&auto=format"
-              alt="Xponential professionals in a business setting"
+              alt="Colleagues discussing a project in a business setting"
+              loading="lazy"
+              decoding="async"
               className="w-full h-40 md:h-52 object-cover opacity-70 hover:opacity-100 transition-opacity duration-300"
             />
           </div>
@@ -603,13 +619,17 @@ function Values() {
             <img
               src="https://images.unsplash.com/photo-1573164574511-73c773193279?w=600&h=340&fit=crop&auto=format"
               alt="Team collaboration session"
+              loading="lazy"
+              decoding="async"
               className="w-full h-40 md:h-52 object-cover opacity-70 hover:opacity-100 transition-opacity duration-300"
             />
           </div>
           <div className="bg-[#f6f8f6] overflow-hidden col-span-2 md:col-span-1">
             <img
               src="https://images.unsplash.com/photo-1573166475912-1ed8b4f093d2?w=600&h=340&fit=crop&auto=format"
-              alt="Xponential professional"
+              alt="ICT professional at work"
+              loading="lazy"
+              decoding="async"
               className="w-full h-40 md:h-52 object-cover opacity-70 hover:opacity-100 transition-opacity duration-300"
             />
           </div>
@@ -624,8 +644,6 @@ const PARTNERS = [
   { name: "HPE", logo: hpeLogo, invert: false },
   { name: "Lenovo", logo: lenovoLogo, invert: false },
   { name: "Google", logo: googleLogo, invert: false },
-  { name: "Duxbury", logo: duxburyLogo, invert: true },
-  { name: "Red Dot", logo: redDotLogo, invert: false },
   { name: "Zamtel", logo: zamtelLogo, invert: false },
 ]
 
@@ -637,7 +655,8 @@ function Partners() {
           Technology Partners
         </p>
         <p className="max-w-xl text-white/65 text-sm md:text-base leading-relaxed">
-          Trusted technology from partners who help us deliver practical, dependable solutions.
+          Trusted technology from partners who help us deliver practical,
+          dependable solutions.
         </p>
       </div>
 
@@ -681,7 +700,12 @@ type ContactForm = {
 
 type SendStatus = "idle" | "sending" | "sent" | "error"
 
-const EMPTY_FORM: ContactForm = { name: "", email: "", company: "", message: "" }
+const EMPTY_FORM: ContactForm = {
+  name: "",
+  email: "",
+  company: "",
+  message: "",
+}
 
 // ---- Contact Section ----
 function ContactSection() {
@@ -737,7 +761,8 @@ function ContactSection() {
               GREAT.
             </h2>
             <p className="text-black/45 text-base md:text-lg leading-relaxed mb-12">
-              Whether you are looking for an ICT solutions partner or want to explore a business relationship, we would love to hear from you.
+              Whether you are looking for an ICT solutions partner or want to
+              explore a business relationship, we would love to hear from you.
             </p>
 
             <div className="flex flex-col gap-8">
@@ -792,9 +817,9 @@ function ContactSection() {
                   Thank you.
                 </p>
                 <p className="text-black/45 text-base leading-relaxed">
-                  Thank you for contacting Xponential. Your message has reached our
-                  team and a confirmation email is on its way to your inbox &mdash;
-                  we will get in touch shortly.
+                  Thank you for contacting Xponential. Your message has reached
+                  our team and a confirmation email is on its way to your inbox
+                  &mdash; we will get in touch shortly.
                 </p>
                 <button
                   onClick={() => {
@@ -809,19 +834,41 @@ function ContactSection() {
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                 {[
-                  { name: "name", label: "Full Name", type: "text", required: true, placeholder: "Your full name" },
-                  { name: "email", label: "Email Address", type: "email", required: true, placeholder: "your@email.com" },
-                  { name: "company", label: "Company / Organisation", type: "text", required: false, placeholder: "Optional" },
+                  {
+                    name: "name",
+                    label: "Full Name",
+                    type: "text",
+                    required: true,
+                    placeholder: "Your full name",
+                  },
+                  {
+                    name: "email",
+                    label: "Email Address",
+                    type: "email",
+                    required: true,
+                    placeholder: "your@email.com",
+                  },
+                  {
+                    name: "company",
+                    label: "Company / Organisation",
+                    type: "text",
+                    required: false,
+                    placeholder: "Optional",
+                  },
                 ].map((field) => (
                   <div key={field.name}>
-                    <label className="block text-black/35 font-mono text-[10px] tracking-[0.25em] uppercase mb-2">
+                    <label
+                      htmlFor={`contact-${field.name}`}
+                      className="block text-black/35 font-mono text-[10px] tracking-[0.25em] uppercase mb-2"
+                    >
                       {field.label}
                     </label>
                     <input
+                      id={`contact-${field.name}`}
                       type={field.type}
                       required={field.required}
                       placeholder={field.placeholder}
-                      value={form[field.name as keyof ContactForm]}
+                      value={form[(field.name as keyof ContactForm)]}
                       onChange={(e) =>
                         setForm((p) => ({ ...p, [field.name]: e.target.value }))
                       }
@@ -830,10 +877,14 @@ function ContactSection() {
                   </div>
                 ))}
                 <div>
-                  <label className="block text-black/35 font-mono text-[10px] tracking-[0.25em] uppercase mb-2">
+                  <label
+                    htmlFor="contact-message"
+                    className="block text-black/35 font-mono text-[10px] tracking-[0.25em] uppercase mb-2"
+                  >
                     Message
                   </label>
                   <textarea
+                    id="contact-message"
                     required
                     rows={5}
                     placeholder="Tell us about your project or enquiry"
@@ -846,8 +897,8 @@ function ContactSection() {
                 </div>
                 {status === "error" && (
                   <p className="text-red-600 text-sm leading-relaxed">
-                    Something went wrong sending your message. Please try again or
-                    email us directly at solution@xponential.co.zm.
+                    Something went wrong sending your message. Please try again
+                    or email us directly at solution@xponential.co.zm.
                   </p>
                 )}
                 <button
@@ -874,11 +925,11 @@ function Footer() {
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10">
           <div>
             <Logo light />
-            <p className="text-white/45 text-xs mt-3 leading-relaxed">
+            <address className="text-white/45 text-xs mt-3 leading-relaxed not-italic">
               4 on Bishop Road, Kabulonga
               <br />
               Lusaka, Zambia
-            </p>
+            </address>
             <a
               href="mailto:solution@xponential.co.zm"
               className="text-white/45 hover:text-white text-xs mt-2 block transition-colors duration-200"
@@ -887,7 +938,7 @@ function Footer() {
             </a>
           </div>
 
-          <div className="flex flex-col gap-3">
+          <nav aria-label="Footer" className="flex flex-col gap-3">
             <p className="text-white/35 font-mono text-[10px] tracking-[0.25em] uppercase mb-1">
               Navigation
             </p>
@@ -900,9 +951,9 @@ function Footer() {
                 {l}
               </a>
             ))}
-          </div>
+          </nav>
 
-          <div className="flex flex-col gap-3">
+          <nav aria-label="Services" className="flex flex-col gap-3">
             <p className="text-white/35 font-mono text-[10px] tracking-[0.25em] uppercase mb-1">
               Services
             </p>
@@ -915,9 +966,9 @@ function Footer() {
                 >
                   {s}
                 </a>
-              )
+              ),
             )}
-          </div>
+          </nav>
 
           <div>
             <p className="text-white/35 font-mono text-[10px] tracking-[0.25em] uppercase mb-3">
@@ -969,7 +1020,9 @@ function NotFoundPage({ onHome }: { onHome: () => void }) {
         onClick={onHome}
         className="group inline-flex items-center gap-3 text-black/60 font-bold text-sm tracking-wide border-b-2 border-black/25 pb-1 hover:text-black hover:border-black transition-all duration-200"
       >
-        <span className="group-hover:-translate-x-1 transition-transform duration-200">←</span>
+        <span className="group-hover:-translate-x-1 transition-transform duration-200">
+          ←
+        </span>
         Return to Home
       </button>
     </div>
@@ -1012,13 +1065,20 @@ function MobileContactSheet({
     <>
       {/* Backdrop */}
       <div
+        inert={!open}
         className={`fixed inset-0 z-50 bg-black/60 md:hidden transition-opacity duration-300 ${
-          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          open
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         }`}
         onClick={onClose}
       />
       {/* Sheet */}
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Get in touch"
+        inert={!open}
         className={`fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white border-t border-[#d9ddd9] transition-transform duration-300 ${
           open ? "translate-y-0" : "translate-y-full"
         }`}
@@ -1058,16 +1118,25 @@ function MobileContactSheet({
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
               {[
                 { name: "name", label: "Name", type: "text", required: true },
-                { name: "email", label: "Email", type: "email", required: true },
+                {
+                  name: "email",
+                  label: "Email",
+                  type: "email",
+                  required: true,
+                },
               ].map((f) => (
                 <div key={f.name}>
-                  <label className="block text-black/35 font-mono text-[10px] tracking-[0.25em] uppercase mb-2">
+                  <label
+                    htmlFor={`mobile-contact-${f.name}`}
+                    className="block text-black/35 font-mono text-[10px] tracking-[0.25em] uppercase mb-2"
+                  >
                     {f.label}
                   </label>
                   <input
+                    id={`mobile-contact-${f.name}`}
                     type={f.type}
                     required={f.required}
-                    value={form[f.name as keyof ContactForm]}
+                    value={form[(f.name as keyof ContactForm)]}
                     onChange={(e) =>
                       setForm((p) => ({ ...p, [f.name]: e.target.value }))
                     }
@@ -1076,10 +1145,14 @@ function MobileContactSheet({
                 </div>
               ))}
               <div>
-                <label className="block text-black/35 font-mono text-[10px] tracking-[0.25em] uppercase mb-2">
+                <label
+                  htmlFor="mobile-contact-message"
+                  className="block text-black/35 font-mono text-[10px] tracking-[0.25em] uppercase mb-2"
+                >
                   Message
                 </label>
                 <textarea
+                  id="mobile-contact-message"
                   required
                   rows={3}
                   value={form.message}
@@ -1091,7 +1164,8 @@ function MobileContactSheet({
               </div>
               {status === "error" && (
                 <p className="text-red-600 text-sm">
-                  Could not send. Please email solution@xponential.co.zm directly.
+                  Could not send. Please email solution@xponential.co.zm
+                  directly.
                 </p>
               )}
               <button
@@ -1141,27 +1215,37 @@ export default function App() {
   }, [])
 
   return (
-    <div className="bg-[#f6f8f6] min-h-screen">
+    <div id="top" className="bg-[#f6f8f6] min-h-screen">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:bg-white focus:text-black focus:px-4 focus:py-2 focus:text-sm focus:font-bold"
+      >
+        Skip to main content
+      </a>
+
       <Nav onContact={() => setContactOpen(true)} />
 
-      {page === "404" ? (
-        <NotFoundPage
-          onHome={() => {
-            window.location.hash = ""
-            setPage("home")
-          }}
-        />
-      ) : (
-        <>
-          <Hero onContact={() => setContactOpen(true)} />
-          <Services />
-          <About />
-          <Values />
-          <Partners />
-          <ContactSection />
-          <Footer />
-        </>
-      )}
+      <main id="main-content">
+        {page === "404" ? (
+          <NotFoundPage
+            onHome={() => {
+              window.location.hash = ""
+              setPage("home")
+            }}
+          />
+        ) : (
+          <>
+            <Hero onContact={() => setContactOpen(true)} />
+            <Services />
+            <About />
+            <Values />
+            <Partners />
+            <ContactSection />
+          </>
+        )}
+      </main>
+
+      {page === "home" && <Footer />}
 
       {/* Mobile floating CTA - visible on mobile only */}
       <div
