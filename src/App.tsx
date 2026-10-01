@@ -6,6 +6,7 @@ import lenovoLogo from "./assets/LENOVO.png"
 import googleLogo from "./assets/GOOGLE.jpeg"
 import zamtelLogo from "./assets/Zamtel.png"
 
+const LOCATION_URL = "https://share.google/id2ePQjhYa1QeO41y"
 
 // ---- Scroll-in animation hook ----
 function useInView(threshold = 0.12) {
@@ -362,7 +363,7 @@ function Services() {
             <button
               key={key}
               onClick={() => setActive(key)}
-              className={`flex-1 py-4 px-6 text-xs font-bold tracking-[0.2em] uppercase transition-all duration-200 text-left sm:text-center border-b sm:border-b-0 sm:border-r border-[#d9ddd9] last:border-0 ${
+              className={`flex-1 py-4 px-6 text-xs font-bold tracking-[0.2em] uppercase transition-all duration-200 text-left sm:text-center border-b sm:border-b-0 sm:border-r border-[#d9ddd9] last:border-r-0 ${
                 active === key
                   ? "bg-[#5ab350] text-black"
                   : "text-black/45 hover:text-black hover:bg-[#e7ebe6]"
@@ -792,13 +793,19 @@ function ContactSection() {
                 <p className="text-black/35 font-mono text-[10px] tracking-[0.25em] uppercase mb-2">
                   Address
                 </p>
-                <address className="text-black/45 text-sm leading-relaxed not-italic">
+                <a
+                  href={LOCATION_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Open Xponential location in Google Maps"
+                  className="block text-black/45 text-sm leading-relaxed not-italic hover:text-black/70 transition-colors duration-200"
+                >
                   4 on Bishop Road
                   <br />
                   Kabulonga, Lusaka
                   <br />
                   Zambia
-                </address>
+                </a>
               </div>
             </div>
           </div>
@@ -925,11 +932,17 @@ function Footer() {
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10">
           <div>
             <Logo light />
-            <address className="text-white/45 text-xs mt-3 leading-relaxed not-italic">
+            <a
+              href={LOCATION_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open Xponential location in Google Maps"
+              className="text-white/45 hover:text-white text-xs mt-3 block transition-colors duration-200 leading-relaxed"
+            >
               4 on Bishop Road, Kabulonga
               <br />
               Lusaka, Zambia
-            </address>
+            </a>
             <a
               href="mailto:solution@xponential.co.zm"
               className="text-white/45 hover:text-white text-xs mt-2 block transition-colors duration-200"
@@ -1191,6 +1204,14 @@ function MobileContactSheet({
               className="text-black/45 text-sm underline underline-offset-4 hover:text-black transition-colors duration-200"
             >
               solution@xponential.co.zm
+            </a>
+            <a
+              href={LOCATION_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-black/45 text-sm underline underline-offset-4 hover:text-black transition-colors duration-200"
+            >
+              4 on Bishop Road, Kabulonga, Lusaka
             </a>
           </div>
         </div>
