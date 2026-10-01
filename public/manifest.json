@@ -1,0 +1,40 @@
+{
+  "name": "Xponential",
+  "short_name": "Xponential",
+  "description": "ICT Solutions & IT Infrastructure Partner in Zambia",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#5ab350",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/xponential-mark.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/xponential-mark.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/xponential-mark.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["business", "technology"],
+  "screenshots": [
+    {
+      "src": "/xponential-mark.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
+}
