@@ -4,53 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="RoD8zGNj0-RKC5E4xjydE_LJk-jkljim_Bjmg3WxyQA" />
-
     <title>Xponential | ICT Solutions &amp; IT Infrastructure Partner in Zambia</title>
-    <meta
-      name="description"
-      content="Xponential plans, builds and supports ICT infrastructure for businesses in Zambia — covering smart workplace technology, networks, data centres and security."
-    />
+    <meta name="description" content="Xponential plans, builds and supports ICT infrastructure for businesses in Zambia — covering smart workplace technology, networks, data centres and security." />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://www.xponential.co.zm/" />
     <meta name="theme-color" content="#5ab350" />
-
-    <!-- Favicon / site icons -->
     <link rel="icon" type="image/png" href="/xponential-mark.png" />
     <link rel="apple-touch-icon" href="/xponential-mark.png" />
-
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Xponential" />
     <meta property="og:locale" content="en_ZM" />
     <meta property="og:url" content="https://www.xponential.co.zm/" />
-    <meta
-      property="og:title"
-      content="Xponential | ICT Solutions & IT Infrastructure Partner in Zambia"
-    />
-    <meta
-      property="og:description"
-      content="Xponential plans, builds and supports ICT infrastructure for businesses in Zambia — covering smart workplace technology, networks, data centres and security."
-    />
+    <meta property="og:title" content="Xponential | ICT Solutions &amp; IT Infrastructure Partner in Zambia" />
+    <meta property="og:description" content="Xponential plans, builds and supports ICT infrastructure for businesses in Zambia — covering smart workplace technology, networks, data centres and security." />
     <meta property="og:image" content="https://www.xponential.co.zm/xponential-mark.png" />
-
-    <!-- Twitter / X card -->
     <meta name="twitter:card" content="summary" />
-    <meta
-      name="twitter:title"
-      content="Xponential | ICT Solutions & IT Infrastructure Partner in Zambia"
-    />
-    <meta
-      name="twitter:description"
-      content="Xponential plans, builds and supports ICT infrastructure for businesses in Zambia — covering smart workplace technology, networks, data centres and security."
-    />
+    <meta name="twitter:title" content="Xponential | ICT Solutions &amp; IT Infrastructure Partner in Zambia" />
+    <meta name="twitter:description" content="Xponential plans, builds and supports ICT infrastructure for businesses in Zambia — covering smart workplace technology, networks, data centres and security." />
     <meta name="twitter:image" content="https://www.xponential.co.zm/xponential-mark.png" />
-
-    <!-- Performance: third-party origins used on the page -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://images.unsplash.com" />
-
-    <!-- Structured data: only verified, on-page company information -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -63,19 +37,9 @@
         "description": "Xponential is a Zambian ICT solutions provider that plans, builds, supports and manages IT environments for businesses, covering smart workplace technology, network and data centre infrastructure, and security.",
         "email": "solution@xponential.co.zm",
         "telephone": "+260978990533",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "4 on Bishop Road, Kabulonga",
-          "addressLocality": "Lusaka",
-          "addressCountry": "ZM"
-        },
+        "address": { "@type": "PostalAddress", "streetAddress": "4 on Bishop Road, Kabulonga", "addressLocality": "Lusaka", "addressCountry": "ZM" },
         "areaServed": "Zambia",
-        "knowsAbout": [
-          "Smart workplace technology",
-          "Network and data centre infrastructure",
-          "IT and cloud security",
-          "ICT consultancy and managed services"
-        ]
+        "knowsAbout": ["Smart workplace technology", "Network and data centre infrastructure", "IT and cloud security", "ICT consultancy and managed services"]
       }
     </script>
   </head>
@@ -83,32 +47,40 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script>
-      // Add social channels to the contact panel once the React section is mounted.
-      const addContactSocialLinks = () => {
-        const contact = document.querySelector('#contact > div > div:first-child')
-        const contactInfo = contact?.querySelector('.flex.flex-col.gap-8')
-        if (!contactInfo || contactInfo.querySelector('[data-contact-socials]')) return false
+      const socialLinks = [
+        { name: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61578493855355', icon: '<svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.6 1.6-1.6h1.7V3.8c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1V10H7.7v3h2.7v8h3.1Z"/></svg>' },
+        { name: 'WhatsApp', href: 'https://wa.me/260978990533', icon: '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 11.6a8 8 0 0 1-11.8 7L4 20l1.4-4A8 8 0 1 1 20 11.6Z"/><path d="M8.7 8.2c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c.5 1 1.3 1.7 2.4 2.2l.6-.5c.2-.2.4-.2.6-.1l1.5.7c.3.1.4.3.3.6-.2.8-.9 1.3-1.7 1.3-2.1-.1-5.5-2.8-5.8-5.6-.1-.6.1-1.1.3-1.4Z"/></svg>' },
+        { name: 'LinkedIn', href: 'https://www.linkedin.com/company/xponential-technology-limited/', icon: '<svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M6.2 8.1H3.1V21h3.1V8.1ZM4.7 3A1.8 1.8 0 1 0 4.7 6.6 1.8 1.8 0 0 0 4.7 3ZM21 13.6c0-3.9-2.1-5.7-4.9-5.7-2.3 0-3.3 1.3-3.9 2.2V8.1H9.1V21h3.1v-6.4c0-1.7.3-3.3 2.4-3.3 2.1 0 2.1 1.9 2.1 3.4V21H20l1-7.4Z"/></svg>' }
+      ]
 
-        const social = document.createElement('div')
-        social.dataset.contactSocials = 'true'
-        social.className = 'pt-2'
-        social.innerHTML = `
-          <p class="text-black/35 font-mono text-[10px] tracking-[0.25em] uppercase mb-3">Connect With Us</p>
-          <div class="flex flex-wrap gap-x-5 gap-y-2">
-            <a href="https://www.facebook.com/profile.php?id=61578493855355" target="_blank" rel="noopener noreferrer" class="text-black hover:text-black/60 transition-colors font-medium underline underline-offset-4 text-sm">Facebook</a>
-            <a href="https://wa.me/260978990533" target="_blank" rel="noopener noreferrer" class="text-black hover:text-black/60 transition-colors font-medium underline underline-offset-4 text-sm">WhatsApp</a>
-            <a href="https://www.linkedin.com/company/xponential-technology-limited/" target="_blank" rel="noopener noreferrer" class="text-black hover:text-black/60 transition-colors font-medium underline underline-offset-4 text-sm">LinkedIn</a>
-          </div>
-        `
-        contactInfo.appendChild(social)
-        return true
+      const renderSocials = (dark) => socialLinks.map(({ name, href, icon }) => `
+        <a href="${href}" target="_blank" rel="noopener noreferrer" aria-label="${name}" title="${name}"
+          class="inline-flex items-center justify-center w-9 h-9 border ${dark ? 'border-white/20 text-white/60 hover:text-white hover:border-white/50' : 'border-black/15 text-black/60 hover:text-black hover:border-black/40'} transition-colors duration-200">
+          <span class="w-4 h-4">${icon}</span>
+        </a>`).join('')
+
+      const addSocialLinks = () => {
+        const contactInfo = document.querySelector('#contact > div > div:first-child .flex.flex-col.gap-8')
+        if (contactInfo && !contactInfo.querySelector('[data-contact-socials]')) {
+          const social = document.createElement('div')
+          social.dataset.contactSocials = 'true'
+          social.innerHTML = `<p class="text-black/35 font-mono text-[10px] tracking-[0.25em] uppercase mb-3">Connect With Us</p><div class="flex flex-wrap gap-3">${renderSocials(false)}</div>`
+          contactInfo.appendChild(social)
+        }
+
+        const footerContact = document.querySelector('footer > div > div:first-child > div:last-child')
+        if (footerContact && !footerContact.querySelector('[data-footer-socials]')) {
+          const social = document.createElement('div')
+          social.dataset.footerSocials = 'true'
+          social.className = 'mt-4'
+          social.innerHTML = `<div class="flex flex-wrap gap-2">${renderSocials(true)}</div>`
+          footerContact.appendChild(social)
+        }
       }
 
-      const contactObserver = new MutationObserver(() => {
-        if (addContactSocialLinks()) contactObserver.disconnect()
-      })
-      contactObserver.observe(document.getElementById('root'), { childList: true, subtree: true })
-      addContactSocialLinks()
+      const socialObserver = new MutationObserver(addSocialLinks)
+      socialObserver.observe(document.getElementById('root'), { childList: true, subtree: true })
+      addSocialLinks()
     </script>
   </body>
 </html>
