@@ -11,6 +11,7 @@
     <meta name="theme-color" content="#5ab350" />
     <link rel="icon" type="image/png" href="/xponential-mark.png" />
     <link rel="apple-touch-icon" href="/xponential-mark.png" />
+    <link rel="manifest" href="/manifest.json" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Xponential" />
     <meta property="og:locale" content="en_ZM" />
@@ -59,6 +60,20 @@
           <span class="w-4 h-4">${icon}</span>
         </a>`).join('')
 
+      const addLocationLink = () => {
+        const addressElement = document.querySelector('address')
+        if (addressElement && !addressElement.querySelector('a[href*="maps"]')) {
+          const link = document.createElement('a')
+          link.href = 'https://share.google/id2ePQjhYa1QeO41y'
+          link.target = '_blank'
+          link.rel = 'noopener noreferrer'
+          link.className = 'text-black/45 hover:text-black/70 transition-colors'
+          link.innerHTML = addressElement.innerHTML
+          addressElement.innerHTML = ''
+          addressElement.appendChild(link)
+        }
+      }
+
       const addSocialLinks = () => {
         const contactInfo = document.querySelector('#contact > div > div:first-child .flex.flex-col.gap-8')
         if (contactInfo && !contactInfo.querySelector('[data-contact-socials]')) {
@@ -76,6 +91,8 @@
           social.innerHTML = `<div class="flex flex-wrap gap-2">${renderSocials(true)}</div>`
           footerContact.appendChild(social)
         }
+
+        addLocationLink()
       }
 
       const socialObserver = new MutationObserver(addSocialLinks)
