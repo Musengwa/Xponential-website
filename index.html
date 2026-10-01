@@ -60,7 +60,7 @@
         "url": "https://www.xponential.co.zm/",
         "logo": "https://www.xponential.co.zm/xponential-mark.png",
         "image": "https://www.xponential.co.zm/xponential-mark.png",
-        "description": "Xponential is a Zambian ICT solutions provider that plans, builds, supports and manages IT environments for businesses, covering smart workplace technology, network and dat[...]
+        "description": "Xponential is a Zambian ICT solutions provider that plans, builds, supports and manages IT environments for businesses, covering smart workplace technology, network and data centre infrastructure, and security.",
         "email": "solution@xponential.co.zm",
         "telephone": "+260978990533",
         "address": {
@@ -82,5 +82,33 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Add social channels to the contact panel once the React section is mounted.
+      const addContactSocialLinks = () => {
+        const contact = document.querySelector('#contact > div > div:first-child')
+        const contactInfo = contact?.querySelector('.flex.flex-col.gap-8')
+        if (!contactInfo || contactInfo.querySelector('[data-contact-socials]')) return false
+
+        const social = document.createElement('div')
+        social.dataset.contactSocials = 'true'
+        social.className = 'pt-2'
+        social.innerHTML = `
+          <p class="text-black/35 font-mono text-[10px] tracking-[0.25em] uppercase mb-3">Connect With Us</p>
+          <div class="flex flex-wrap gap-x-5 gap-y-2">
+            <a href="https://www.facebook.com/profile.php?id=61578493855355" target="_blank" rel="noopener noreferrer" class="text-black hover:text-black/60 transition-colors font-medium underline underline-offset-4 text-sm">Facebook</a>
+            <a href="https://wa.me/260978990533" target="_blank" rel="noopener noreferrer" class="text-black hover:text-black/60 transition-colors font-medium underline underline-offset-4 text-sm">WhatsApp</a>
+            <a href="https://www.linkedin.com/company/xponential-technology-limited/" target="_blank" rel="noopener noreferrer" class="text-black hover:text-black/60 transition-colors font-medium underline underline-offset-4 text-sm">LinkedIn</a>
+          </div>
+        `
+        contactInfo.appendChild(social)
+        return true
+      }
+
+      const contactObserver = new MutationObserver(() => {
+        if (addContactSocialLinks()) contactObserver.disconnect()
+      })
+      contactObserver.observe(document.getElementById('root'), { childList: true, subtree: true })
+      addContactSocialLinks()
+    </script>
   </body>
 </html>
